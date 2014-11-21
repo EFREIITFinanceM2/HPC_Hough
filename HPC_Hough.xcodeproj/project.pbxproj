@@ -10,6 +10,7 @@
 		C62EB7B91A12B81F00752283 /* pgm.c in Sources */ = {isa = PBXBuildFile; fileRef = C62EB7B71A12B81F00752283 /* pgm.c */; };
 		C661358C1A1CD3C3004F0A76 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C66135891A1CD3C3004F0A76 /* main.c */; };
 		C661358D1A1CD3C3004F0A76 /* pre_traitements.c in Sources */ = {isa = PBXBuildFile; fileRef = C661358A1A1CD3C3004F0A76 /* pre_traitements.c */; };
+		C6D766CF1A1F76740012959C /* hough.c in Sources */ = {isa = PBXBuildFile; fileRef = C6D766CD1A1F76740012959C /* hough.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,8 @@
 		C66135891A1CD3C3004F0A76 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		C661358A1A1CD3C3004F0A76 /* pre_traitements.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pre_traitements.c; sourceTree = "<group>"; };
 		C661358B1A1CD3C3004F0A76 /* pre_traitements.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pre_traitements.h; sourceTree = "<group>"; };
+		C6D766CD1A1F76740012959C /* hough.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hough.c; sourceTree = "<group>"; };
+		C6D766CE1A1F76740012959C /* hough.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hough.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,8 @@
 				C661358B1A1CD3C3004F0A76 /* pre_traitements.h */,
 				C62EB7B71A12B81F00752283 /* pgm.c */,
 				C62EB7B81A12B81F00752283 /* pgm.h */,
+				C6D766CD1A1F76740012959C /* hough.c */,
+				C6D766CE1A1F76740012959C /* hough.h */,
 			);
 			path = HPC_Hough;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 				C661358C1A1CD3C3004F0A76 /* main.c in Sources */,
 				C661358D1A1CD3C3004F0A76 /* pre_traitements.c in Sources */,
 				C62EB7B91A12B81F00752283 /* pgm.c in Sources */,
+				C6D766CF1A1F76740012959C /* hough.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

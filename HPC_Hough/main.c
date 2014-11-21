@@ -3,6 +3,7 @@
 #include <math.h>
 #include "pgm.h"
 #include "pre_traitements.h"
+#include "hough.h"
 
 #define PI 3.1415
 
