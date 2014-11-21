@@ -67,7 +67,7 @@ void write_pgm(char * file, image * img) {
   
   /* Write PGM header */
   fprintf(f, "P2\n");
-  fprintf(f, "# %s\n", file);
+  //fprintf(f, "# %s\n", file);
   
   /* Write dimensions */
   fprintf(f, "%d %d\n", img->w, img->h);
