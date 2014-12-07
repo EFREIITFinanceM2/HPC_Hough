@@ -13,6 +13,7 @@
 #include "pgm.h"
 #include <math.h>
 #include <stdlib.h>
+#include <omp.h>
 
 #define WH 100
 #define THRESHOLD_HOUGH 100

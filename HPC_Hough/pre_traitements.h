@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "pgm.h"
+#include <omp.h>
 
 /* Macro-constantes */
 #define ASSOMBRISSEMENT 120

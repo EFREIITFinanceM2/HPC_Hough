@@ -4,6 +4,7 @@
 #include "pgm.h"
 #include "pre_traitements.h"
 #include "hough.h"
+#include <omp.h>
 
 #define PI 3.1415
 
