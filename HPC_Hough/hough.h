@@ -17,6 +17,7 @@
 #define WH 100
 #define THRESHOLD_HOUGH 100
 #define PI 3.14
+#define NUM_LINES 100
 
 void hough(char* input, char* output);
 

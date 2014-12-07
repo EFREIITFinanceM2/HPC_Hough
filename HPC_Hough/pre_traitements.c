@@ -9,9 +9,13 @@ void assombrir_image(char * cheminEntree, char * cheminSortie, int val)
 
 	//création de la future image assombrie
 	image * image = read_pgm(cheminEntree);
-
+    
+#pragma omp parallel
+    {
+#pragma omp for
 	for (y = 0; y < image->h; y++)
 	{
+#pragma omp for
 		for (x = 0; x < image->w; x++)
 		{
 			//valeur du niveau de gris superieur à val => baisse le niveau de val 	
@@ -25,6 +29,8 @@ void assombrir_image(char * cheminEntree, char * cheminSortie, int val)
 			}
 		}
 	}
+        
+    }//end of parallel
 	write_pgm(cheminSortie, image);
 	return;
 }
@@ -50,6 +56,9 @@ void normalisation_image(char * chemin_entree, char * chemin_sortie)
 		error("-- Problème normalisation -> pointeur NULL -- ");
 
 	//On détermine les valeurs pmin et pmax de l'image de départ
+#pragma omp parallel
+    {
+#pragma omp for
 	for(i=0; i< taille_img; i++)
 	{     
 			//Si la valeur du niveau de gris est inférieur à pmin, il devient pmin
@@ -61,11 +70,14 @@ void normalisation_image(char * chemin_entree, char * chemin_sortie)
 	}
 
 	// On applique la formule de normalisation avec les pmin et pmax trouvé
+#pragma omp for
 	for( i=0 ; i < taille_img; i++)
 	{
 		norma_train->img[i] = 255*(im->img[i]-pmin)/(pmax-pmin);
 	}
 
+        
+    }//end of parallel
 	write_pgm(chemin_sortie,norma_train);
 	
 	return;
@@ -101,19 +113,19 @@ void sobel(char * chemin_entree, char * chemin_sortie)
     image* imSobelOut=create_image(im->w, im->h, im->colors);
     double SX[9]={0};
     double SY[9]={0};
-    SX[0]=SX[6]=1;
+    SX[0]=SX[6]=1/2;
     //SX[0]=SX[6]=0;
     SX[3]=2;
     //SX[3]=1/2;
-    SX[2]=SX[8]=-1;
+    SX[2]=SX[8]=-1/2;
     //SX[2]=SX[8]=0;
     SX[5]=-2;
     //SX[5]=-1/2;
-    SY[0]=SY[2]=1;
+    SY[0]=SY[2]=1/2;
     //SY[0]=SY[2]=0;
     SY[1]=2;
     //SY[1]=1/2;
-    SY[6]=SY[8]=-1;
+    SY[6]=SY[8]=-1/2;
     //SY[6]=SY[8]=0;
     SY[7]=-2;
     //SY[7]=-1/2;
@@ -133,8 +145,10 @@ void sobel(char * chemin_entree, char * chemin_sortie)
      }
      write_pgm("test.bmp", im);*/
     
+#pragma omp parallel
+    {
     
-    
+#pragma omp for nowait
     for (int j=1; j<im->w-1; j++) {
         a1=a2=a3=0;
         b1=im->img[(j-1)*h];
@@ -146,6 +160,7 @@ void sobel(char * chemin_entree, char * chemin_sortie)
         imSobelOut->img[j*h] = mySobelFiltre(a1, a2, a3, b1, b2, b3, c1, c2, c3, SX, SY);
     }
     
+#pragma omp for nowait
     for (int j=1; j<im->w-1; j++) {
         int i=h-1;
         a1=im->img[(j-1)*h+(i-1)];
@@ -159,6 +174,7 @@ void sobel(char * chemin_entree, char * chemin_sortie)
     }
     
     
+#pragma omp for nowait
     for (int i=1; i<im->h-1; i++) {
         int j=0;
         a1=b1=c1=0;
@@ -174,6 +190,7 @@ void sobel(char * chemin_entree, char * chemin_sortie)
     }
     
     
+#pragma omp for nowait
     for (int i=1; i<im->h-1; i++) {
         int j=w-1;
         a3=b3=c3=0;
@@ -189,6 +206,8 @@ void sobel(char * chemin_entree, char * chemin_sortie)
         imSobelOut->img[j*h+i] = mySobelFiltre(a1, a2, a3, b1, b2, b3, c1, c2, c3, SX, SY);
     }
     
+        
+#pragma omp for nowait
     for (int i=1; i<im->h-1; i++) {
         for (int j=1; j<im->w-1; j++) {
             a1=im->img[(j-1)*h+(i-1)];
@@ -204,7 +223,10 @@ void sobel(char * chemin_entree, char * chemin_sortie)
         }
     }
     
+        
+#pragma omp for
     for (int i=0; i<im->h; i++) {
+#pragma omp for
         for (int j=0; j<im->w; j++) {
             if (imSobelOut->img[j*h+i]<100){
                 imSobelOut->img[j*h+i]=0;
@@ -216,10 +238,12 @@ void sobel(char * chemin_entree, char * chemin_sortie)
         }
     }
     
-    write_pgm("sobelOuptFile.bmp", imSobelOut);
+    //write_pgm("sobelOuptFile.bmp", imSobelOut);
     
 
-	//write_pgm(chemin_sortie,img_sobel);
+    }//end of parallel
+    
+	write_pgm(chemin_sortie,imSobelOut);
 
 	return;
 }
